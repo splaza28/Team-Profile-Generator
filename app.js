@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const Employee = require('./lib/Employee')
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Manager');
 const Manager = require('./lib/Intern');
@@ -9,9 +10,8 @@ const team = [];
 
 let rosterComplete = false;
 
-const createTeam = async () => {
-    await getManager();
-    const roleQuestion = [
+const questions = data => {
+    return inquirer.prompt ([
         {
             type: "list",
             name: "roleType",
@@ -21,72 +21,32 @@ const createTeam = async () => {
             "Engineer",
             "Intern",
             "Roster complete"
-     ]
-   }     
+            ]
+        },
+        {
+            type:"input",
+            message: "What is your name?",
+            name: "name",
+        },
+        {
+            type: "input",
+            message: "What is the your id?",
+            name: "id",
+        },
 
-    ]
-}
+        {
+            type:"input",
+            message: "What is your email?",
+            name:"email",
+        },
 
-const {roleType} = await.inquirer.prompt(roleQuestion);
-if (roleType === "no") {
-rosterComplete = true;};
-//} else { if (roleType ===
+        {
+            type: "input",
+            name: "office",
+            message: "Enter Manager's office number:",
+            
+        }
+    ])
+};
 
-
-
-
-function createTeam() {
-    function getManager() {
-        inquirer.prompt([
-            {
-                type:"input",
-                message: "What is the manager's name?",
-                name: "name",
-            },
-            {
-                type: "input",
-                message: "What is the amanger's id?",
-                name: "id",
-            },
-            {
-                type:"input",
-                message: "What is the manager's email?",
-                name:"email",
-            },
-            {
-                type:"input",
-                message:"what is the manager's office number?",
-                name:"officeNumber"
-            }
-
-         ]).then(respone => {
-             const manager = new Manager(response.name, response.id, respone.email, response.officeNumber);
-             team.push(manager);
-             addToTeam();
-         })
-    }
-
-    
-           
-    
-
-function writeToFile(fileName, data) {
-    fs.writeFile(fileName, data, (err) => {
-        if (err) throw err; 
-    })
-}
-
-// TODO: Create a function to initialize app
-function createTeam() {
-    inquirer.prompt(questions).then(answers => {
-        console.log(answers);
-        fs.writeFile("README.md", generateMarkdown(answers), function(err) {
-            if (err) throw err;
-            else if (console.log("README.md Successfully Created!"));
-            });
-        
-    });
-}
-
-
-createTeam();
+questions();
