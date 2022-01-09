@@ -8,7 +8,7 @@ const Manager = require('./lib/Intern');
 const generateHtml = require('./src/createHtml');
 const team = [];
 
-let rosterComplete = false;
+//let rosterComplete = false;
 
 const questions = data => {
     return inquirer.prompt ([
@@ -83,12 +83,22 @@ const questions = data => {
         },
 
         {
-            type: "confirm",
-            name: "rosterComplete",
-            message: "Is your roster complete or would you like to add another employee?",
-          
-        }
+          type: 'confirm',
+          name: 'rosterComplete',
+          message: 'Would you like to enter another employee?',
+          default: true,
+      },
+
     ])
+    .then(roster => {
+      if (roster.rosterComplete) {
+        return questions() ;
+      }
+      else {
+        return console.log('complete!');
+      }
+
+    })
 }
         
 questions();
