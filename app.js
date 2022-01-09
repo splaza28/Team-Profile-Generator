@@ -15,7 +15,7 @@ const questions = data => {
         {
             type: "list",
             name: "roleType",
-            message: "What is your role on the team?",
+            message: "What is the employee's role on the team?",
     choices: [
             "Manager",
             "Engineer",
@@ -25,28 +25,70 @@ const questions = data => {
         },
         {
             type:"input",
-            message: "What is your name?",
             name: "name",
+            message: "What is the employee's name?",
+            
         },
         {
             type: "input",
-            message: "What is the your id?",
             name: "id",
+            message: "What is the employee's id?",
+            
         },
 
         {
             type:"input",
-            message: "What is your email?",
             name:"email",
+            message: "What is the employee's email?",
+            
         },
 
         {
             type: "input",
             name: "office",
-            message: "Enter Manager's office number:",
-            
+            message: "Enter the manager's office number:",
+            when: manager => {
+              if (manager.roleType === "Manager") {
+                return true;
+              } else {
+                return false;
+              }
+            }
+        },
+
+        {
+            type: "input",
+            name: "github",
+            message: "Enter the engineer's github user:",
+            when: engineer => {
+              if (engineer.roleType === "Engineer") {
+                return true;
+              } else {
+                return false;
+              }
+            }
+        },
+
+        {
+            type: "input",
+            name: "school",
+            message: "Enter the intern's school name:",
+            when: intern => {
+              if (intern.roleType === "Intern") {
+                return true;
+              } else {
+                return false;
+              }
+            }
+        },
+
+        {
+            type: "confirm",
+            name: "rosterComplete",
+            message: "Is your roster complete or would you like to add another employee?",
+          
         }
     ])
-};
-
+}
+        
 questions();
