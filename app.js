@@ -1,3 +1,4 @@
+
 const inquirer = require('inquirer');
 const fs = require('fs');
 const Employee = require('./lib/Employee')
@@ -5,7 +6,7 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Manager');
 const Manager = require('./lib/Intern');
 //const util = require('util');
-const generateHtml = require('./src/createHtml');
+const generatePage = require('./src/createHtml');
 const team = [];
 
 //let rosterComplete = false;
@@ -90,15 +91,21 @@ const questions = data => {
       },
 
     ])
-    .then(roster => {
-      if (roster.rosterComplete) {
+    .then(choice => {
+      if (choice.rosterComplete) {
         return questions() ;
       }
       else {
-        return console.log('complete!');
+       console.log('complete!');
       }
-
+      if (choice.Manager) {
+        console.log('works');
+        
+      }
     })
 }
         
 questions();
+
+
+
